@@ -1,0 +1,24 @@
+name: Backup Script CI
+
+on:
+    push:
+
+jobs:
+    test-backup:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                python-version: "3.12"
+              
+            - name: Run Backup Script
+              run : python backups.py
+              
+            - name: Check Backup folder
+              run: ls backup  
+
