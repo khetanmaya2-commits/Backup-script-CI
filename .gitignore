@@ -1,0 +1,5 @@
+# Backup archives
+backup/*.tar.gz
+
+# Keep the backup folder
+!backup/.gitkeep

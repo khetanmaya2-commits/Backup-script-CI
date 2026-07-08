@@ -20,5 +20,11 @@ jobs:
               run : python backups.py
               
             - name: Check Backup folder
-              run: ls backup  
+              run: ls backup 
+              
+            - name: Upload Backup Artifact 
+              uses : actions/upload-artifacr@v4
+              with:
+                name: backup-file
+                path: backup/*.tar.gz
 
