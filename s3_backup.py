@@ -14,6 +14,12 @@ def show_buckets(s3):
     for bucket in s3.buckets.all():
         print(bucket.name)
 
+def bucket_exists(bucket_name):
+    for bucket in s3.buckets.all():
+        if bucket.name == bucket_name:
+            return True        
+    return False    
+
 def create_bucket(s3, bucket_name, region):
     s3.create_bucket(Bucket=bucket_name, CreateBucketConfiguration={
         'LocationConstraint': region,
@@ -39,8 +45,13 @@ destination= "backup"
 backup_path= backup_files(source,destination)
 key_name= os.path.basename(backup_path)
 
+if bucket_exists(bucket_name):
+    print("Bucket alredy exists.")
+else:
+    create_bucket(s3,bucket_name, region)
 
-# create_bucket(s3,bucket_name, region)
+
+
 show_buckets(s3)
 upload_backup(s3,backup_path,bucket_name,key_name)
 
