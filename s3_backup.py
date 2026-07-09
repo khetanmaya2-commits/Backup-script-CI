@@ -40,7 +40,7 @@ backup_path= backup_files(source,destination)
 key_name= os.path.basename(backup_path)
 
 
-create_bucket(s3,bucket_name, region)
+# create_bucket(s3,bucket_name, region)
 show_buckets(s3)
 upload_backup(s3,backup_path,bucket_name,key_name)
 
