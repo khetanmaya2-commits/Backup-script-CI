@@ -15,16 +15,19 @@ jobs:
               uses: actions/setup-python@v4
               with:
                 python-version: "3.12"
-              
-            - name: Run Backup Script
-              run : python backups.py
-              
-            - name: Check Backup folder
-              run: ls backup 
-              
-            - name: Upload Backup Artifact 
-              uses : actions/upload-artifact@v4
-              with:
-                name: backup-file
-                path: backup/*.tar.gz
 
+            - name: Install Dependencies
+              run: pip install boto3    
+
+            - name: Configure AWS Credentials
+              uses : aws-actions/configure-aws-credentials@v4
+              with:
+                aws-access-key-id : ${{secrets.AWS_ACCESS_KEY}}  
+                aws-secret-key-: ${{secrets.AWS_SECRET_KEY}}
+                aws-region: ap-south-1
+              
+              
+              
+            - name: Upload Backup to AWS S3
+              run: python s3_backup.py
+              
